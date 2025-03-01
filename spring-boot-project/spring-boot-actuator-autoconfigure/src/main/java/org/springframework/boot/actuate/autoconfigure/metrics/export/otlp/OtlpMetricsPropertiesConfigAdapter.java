@@ -82,6 +82,7 @@ class OtlpMetricsPropertiesConfigAdapter extends StepRegistryPropertiesConfigAda
 			.asMap();
 		attributes.computeIfAbsent("service.name", (key) -> getApplicationName());
 		attributes.computeIfAbsent("service.group", (key) -> getApplicationGroup());
+		attributes.computeIfAbsent("service.namespace", (key) -> getApplicationGroup());
 		return Collections.unmodifiableMap(attributes);
 	}
 

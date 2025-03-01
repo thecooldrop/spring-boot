@@ -163,6 +163,17 @@ class OtlpMetricsPropertiesConfigAdapterTests {
 		assertThat(createAdapter().resourceAttributes()).doesNotContainKey("service.group");
 	}
 
+	@Test
+	void shouldUseServiceGroupForServiceNamespaceIfServiceGroupIsSet() {
+		this.environment.setProperty("spring.application.group", "alpha");
+		assertThat(createAdapter().resourceAttributes()).containsEntry("service.namespace", "alpha");
+	}
+
+	@Test
+	void shouldNotSetServiceNamespaceIfServiceGroupIsNotSet() {
+		assertThat(createAdapter().resourceAttributes()).doesNotContainKey("service.namespace");
+	}
+
 	private OtlpMetricsPropertiesConfigAdapter createAdapter() {
 		return new OtlpMetricsPropertiesConfigAdapter(this.properties, this.openTelemetryProperties,
 				this.connectionDetails, this.environment);
