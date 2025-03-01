@@ -80,6 +80,8 @@ public class OpenTelemetryAutoConfiguration {
 			.asMap();
 		attributes.computeIfAbsent("service.name", (key) -> getApplicationName(environment));
 		attributes.computeIfAbsent("service.group", (key) -> getApplicationGroup(environment));
+		// See https://github.com/spring-projects/spring-boot/issues/44411 for potential information about deprecation of "service.group" attribute
+		attributes.computeIfAbsent("service.namespace", (key) -> getApplicationGroup(environment));
 		attributes.forEach(builder::put);
 		return builder.build();
 	}
